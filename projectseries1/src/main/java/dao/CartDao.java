@@ -29,7 +29,8 @@ public class CartDao {
 			e.printStackTrace();
 		}
 	}
-	public static List<Cart> getCartByCusId(int id){
+
+	public static List<Cart> getCartByCusId(int id) {
 		List<Cart> list = new ArrayList<Cart>();
 		try {
 			Connection connection = DBConnection.createConnection();
@@ -54,5 +55,63 @@ public class CartDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public static Cart getCartByCid(int cid) {
+		Cart c= null;
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlString = "select * from cart where cid=?";
+			PreparedStatement pst = connection.prepareStatement(sqlString);
+			pst.setInt(1, cid);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				c = new Cart();
+				c.setCid(rs.getInt("cid"));
+				c.setCusid(rs.getInt("cusid"));
+				c.setPid(rs.getInt("pid"));
+				c.setPname(rs.getString("pname"));
+				c.setPprice(rs.getInt("pprice"));
+				c.setPqty(rs.getInt("pqty"));
+				c.setPayment_status(rs.getString("payment_status"));
+				c.setTotal(rs.getInt("total"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return c;
+	}
+	
+	public static void updateCart(Cart c) {
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlString = "update cart set pqty=?,total=? where cid=?";
+			PreparedStatement pst = connection.prepareStatement(sqlString);
+			pst.setInt(1, c.getPqty());
+			pst.setInt(2, c.getTotal());
+			pst.setInt(3, c.getCid());
+			pst.executeUpdate();
+			System.out.println("cart updated");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	public static boolean checkProductexits(int cusid,int pid) {
+		boolean flag = false;
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlString = "select * from cart where cusid=? and pid=?";
+			PreparedStatement pst = connection.prepareStatement(sqlString);
+			pst.setInt(1, cusid);
+			pst.setInt(2, pid);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
 	}
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.CustomerDao;
 import dao.SellerDao;
 import model.Customer;
+import model.Seller;
 import services.Service;
 
 /**
@@ -157,6 +158,16 @@ public class CustomerController extends HttpServlet {
 				request.setAttribute("msg1", "new password and confirm new password is not matched");
 				request.getRequestDispatcher("customer-new-password.jsp").forward(request, response);
 			}
+		}
+		else if (action.equalsIgnoreCase("admin customer update")) {
+			Customer c = new Customer();
+			c.setId(Integer.parseInt(request.getParameter("id")));
+			c.setName(request.getParameter("name"));
+			c.setContact(Long.parseLong(request.getParameter("contact")));
+			c.setAddress(request.getParameter("address"));
+			c.setEmail(request.getParameter("email"));
+			CustomerDao.updateProfile(c);
+			response.sendRedirect("admin-customers-list.jsp");
 		}
 
 	}

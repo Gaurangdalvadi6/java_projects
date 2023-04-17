@@ -116,8 +116,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</h3>
 			<div class="row contact-main-info mt-5">
 				<div class="col-md-12 contact-right-content">
-					<form action="#" method="post">
-						<input type="email" class="email" name="Email" placeholder="Email" required=""> 
+					<form action="AdminController" method="post">
+						<input type="email" class="email" name="email" placeholder="Email" required=""> 
 						<input type="password" name="password" placeholder="Password" required="">
 						<div class="text-center">
 							<input type="submit" value="Login" name="action" >

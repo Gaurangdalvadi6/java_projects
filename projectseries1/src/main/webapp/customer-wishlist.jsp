@@ -1,4 +1,6 @@
 
+<%@page import="dao.CartDao"%>
+<%@page import="model.Cart"%>
 <%@page import="model.WishList"%>
 <%@page import="dao.WishListDao"%>
 <%@page import="dao.ProductDao"%>
@@ -89,7 +91,12 @@ else{
 						</label> <a href="#">Product <span class="fa fa-angle-down"
 								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
 							<ul>
-								<li><a href="customer-cart-product.jsp">Cart</a></li>
+								<%
+								List<Cart> list2 = CartDao.getCartByCusId(c.getId());
+								%>
+								<li><a href="customer-cart.jsp">Cart(<%=list2.size()%>)
+								</a></li>
+
 								
 								<%List<WishList> list1 = WishListDao.getWishListByCusId(c.getId()); %>
 								<li class="active"><a href="customer-wishlist.jsp">WishList(<%=list1.size() %>)</a></li>

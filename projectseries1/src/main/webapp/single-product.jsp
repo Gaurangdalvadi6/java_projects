@@ -90,20 +90,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</label> <a href="#">Product <span class="fa fa-angle-down"
 								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
 							<ul>
-								<%List<Cart> list2 = CartDao.getCartByCusId(c.getId()); %>
-								<li><a href="customer-cart.jsp">Cart(<%=list2.size() %>)</a></li>
-								
-								<%List<WishList> list1 = WishListDao.getWishListByCusId(c.getId()); %>
-								<li><a href="customer-wishlist.jsp">WishList(<%=list1.size() %>)</a></li>
+								<%
+								List<Cart> list2 = CartDao.getCartByCusId(c.getId());
+								%>
+								<li><a href="customer-cart.jsp">Cart(<%=list2.size()%>)
+								</a></li>
+
+								<%
+								List<WishList> list1 = WishListDao.getWishListByCusId(c.getId());
+								%>
+								<li><a href="customer-wishlist.jsp">WishList(<%=list1.size()%>)
+								</a></li>
 							</ul>
 						</li>
 						<li>
 							<!-- First Tier Drop Down --> <label for="drop-2" class="toggle">Drop
 								Down <span class="fa fa-angle-down" aria-hidden="true"></span>
-						</label>
-						 <a href="#"><%=c.getName()%><span class="fa fa-angle-down"
-								aria-hidden="true"></span></a>
-						 <input type="checkbox" id="drop-2" />
+						</label> <a href="#"><%=c.getName()%><span class="fa fa-angle-down"
+								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
 							<ul>
 								<li><a href="customer-profile.jsp">Profile</a></li>
 								<li><a href="customer-change-password.jsp">Change
@@ -117,45 +121,67 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</header>
 		<!-- //header -->
-		
+
 	</div>
 	<!--//main-content-->
-    <!---->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="index.jsp">Home</a>
-        </li>
-        <li class="breadcrumb-item active">Shop Single</li>
-    </ol>
-    <!---->
-    <!-- banner -->
+	<!---->
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+		<li class="breadcrumb-item active">Shop Single</li>
+	</ol>
+	<!---->
+	<!-- banner -->
 
 	<div class="left-ads-display col-lg-8">
 		<div class="row">
-		<% int id = Integer.parseInt(request.getParameter("id")); %>
-		<% Product p = ProductDao.getProductByPid(id); %>
+			<%
+			int id = Integer.parseInt(request.getParameter("id"));
+			%>
+			<%
+			Product p = ProductDao.getProductByPid(id);
+			%>
 			<div class="desc1-left col-md-6">
-				<img src="image/<%=p.getImage() %>" class="img-fluid" alt="">
+				<img src="image/<%=p.getImage()%>" class="img-fluid" alt="">
 			</div>
 			<div class="desc1-right col-md-6 pl-lg-4">
-				<h3><%=p.getPname() %></h3>
+				<h3><%=p.getPname()%></h3>
 				<h5>
-					Rs. <%=p.getPprice() %>
+					Rs.
+					<%=p.getPprice()%>
 				</h5>
 				<div class="available mt-3">
-					<form action="CartController" method="post" class="w3layouts-newsletter">
-						<input type="hidden" name="pid" value="<%=p.getPid()%>">
-						<input type="hidden" name="cusid" value="<%=c.getId()%>">
-						<button class="btn1" name="action" value="addtocart">Add to Cart</button>
+					<%
+					boolean flag1 = CartDao.checkProductexits(c.getId(), p.getPid());
+					%>
+					<%
+					if (flag1 == false) {
+					%>
+					<form action="CartController" method="get"
+						class="w3layouts-newsletter">
+						<input type="hidden" name="pid" value="<%=p.getPid()%>"> <input
+							type="hidden" name="cusid" value="<%=c.getId()%>">
+						<button class="btn1" name="action" value="addtocart">Add
+							to Cart</button>
 					</form>
-					<%boolean flag = WishListDao.checkProductexits(c.getId(), p.getPid()); %>
-					<%if(flag == false){ %>
-					<form action="WishListController" method="post" class="w3layouts-newsletter">
-						<input type="hidden" name="pid" value="<%=p.getPid()%>">
-						<input type="hidden" name="cusid" value="<%=c.getId()%>">
-						<button class="btn1" name="action" value="addtowishlist">Add To Wishlist</button>
+					<%
+					}
+					%>
+					<%
+					boolean flag = WishListDao.checkProductexits(c.getId(), p.getPid());
+					%>
+					<%
+					if (flag == false) {
+					%>
+					<form action="WishListController" method="post"
+						class="w3layouts-newsletter">
+						<input type="hidden" name="pid" value="<%=p.getPid()%>"> <input
+							type="hidden" name="cusid" value="<%=c.getId()%>">
+						<button class="btn1" name="action" value="addtowishlist">Add
+							To Wishlist</button>
 					</form>
-					<%} %>
+					<%
+					}
+					%>
 					<span><a href="#">login to save in wishlist </a></span>
 					<p>Lorem Ipsum has been the industry's standard since the
 						1500s. Praesent ullamcorper dui turpis..</p>

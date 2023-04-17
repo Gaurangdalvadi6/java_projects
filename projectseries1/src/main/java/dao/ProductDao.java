@@ -104,4 +104,35 @@ public class ProductDao {
 		}
 		return p;
 	}
+	public static Product updateProductByPid(Product p) {
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlString = "update product image=?,pname=?,pprice=?,pcategory=?,pdesc=? where pid=?";
+			PreparedStatement pst = connection.prepareStatement(sqlString);
+			pst.setString(1, p.getImage());
+			pst.setString(2, p.getPname());
+			pst.setInt(3, p.getPprice());
+			pst.setString(4, p.getPcategory());
+			pst.setString(5, p.getPdesc());
+			pst.executeUpdate();
+			System.out.println("product updated successfully.....");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return p;
+	}
+	public static void deleteSeller(int id) {
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlstString = "delete from product where pid=?";
+			PreparedStatement pst = connection.prepareStatement(sqlstString);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+			System.out.println("data deleted...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+	}
 }

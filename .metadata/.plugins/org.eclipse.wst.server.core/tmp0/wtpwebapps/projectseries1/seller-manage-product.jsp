@@ -197,6 +197,16 @@ else{
 									<span class="money"><%=p.getPprice() %></span>
 								</div>
 							</div>
+							<div class="product_price">
+								<div class="grid-price">
+									<span class="money"><a href="seller-edit.jsp?id=<%=p.getPid()%>">Edit</a></span>
+								</div>
+							</div>
+							<div class="product_price">
+								<div class="grid-price">
+									<span class="money"><a href="seller-delete.jsp?id=<%=p.getPid()%>">Delete</a></span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

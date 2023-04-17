@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import connectivity.DBConnection;
 import model.Seller;
@@ -123,6 +125,65 @@ public class SellerDao {
 			System.out.println("password will changed");
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	public static List<Seller> getAllSellers(){
+		List<Seller> list = new ArrayList<Seller>();
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlString = "select * from seller";
+			PreparedStatement pst = connection.prepareStatement(sqlString);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				Seller s1 = new Seller();
+				s1.setId(rs.getInt("id"));
+				s1.setName(rs.getString("name"));
+				s1.setContact(rs.getLong("contact"));
+				s1.setAddress(rs.getString("address"));
+				s1.setEmail(rs.getString("email"));
+				s1.setPassword(rs.getString("password"));
+				list.add(s1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public static Seller getSellerById(int id) {
+		Seller s1 = null;
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlstString = "select * from seller where id=?";
+			PreparedStatement pst = connection.prepareStatement(sqlstString);
+			pst.setInt(1, id);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				s1 = new Seller();
+				s1.setId(rs.getInt("id"));
+				s1.setName(rs.getString("name"));
+				s1.setContact(rs.getLong("contact"));
+				s1.setAddress(rs.getString("address"));
+				s1.setEmail(rs.getString("email"));
+				s1.setPassword(rs.getString("password"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return s1;
+	}
+	public static void deleteSeller(int id) {
+		try {
+			Connection connection = DBConnection.createConnection();
+			String sqlstString = "delete from seller where id=?";
+			PreparedStatement pst = connection.prepareStatement(sqlstString);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+			System.out.println("data deleted...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
 		}
 	}
 }

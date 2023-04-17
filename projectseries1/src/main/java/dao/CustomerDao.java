@@ -2,6 +2,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import connectivity.DBConnection;
 import model.Customer;
@@ -124,5 +126,51 @@ public class CustomerDao {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		public static List<Customer> getAllCustomers() {
+			List<Customer> list = new ArrayList<Customer>();
+			try {
+				Connection  connection = DBConnection.createConnection();
+				String sqString = "select * from customer";
+				PreparedStatement pst = connection.prepareStatement(sqString);
+				ResultSet rs = pst.executeQuery();
+				while (rs.next()) {
+					Customer c1 = new Customer();
+					c1.setId(rs.getInt("id"));
+					c1.setName(rs.getString("name"));
+					c1.setContact(rs.getLong("contact"));
+					c1.setAddress(rs.getString("address"));
+					c1.setEmail(rs.getString("email"));
+					c1.setPassword(rs.getString("password"));
+					list.add(c1);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			return list;
+		}
+		public static Customer getCustomerById(int id) {
+			Customer c1 = null;
+			try {
+				Connection connection = DBConnection.createConnection();
+				String sqlstString = "select * from customer where id=?";
+				PreparedStatement pst = connection.prepareStatement(sqlstString);
+				pst.setInt(1, id);
+				ResultSet rs = pst.executeQuery();
+				if (rs.next()) {
+					c1 = new Customer();
+					c1.setId(rs.getInt("id"));
+					c1.setName(rs.getString("name"));
+					c1.setContact(rs.getLong("contact"));
+					c1.setAddress(rs.getString("address"));
+					c1.setEmail(rs.getString("email"));
+					c1.setPassword(rs.getString("password"));
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			return c1;
 		}
 }
