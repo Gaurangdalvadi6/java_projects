@@ -124,14 +124,14 @@ else{
 			<h3 class="tittle text-center">
 				<span class="sub-tittle">Find Us</span> Seller Manage Product
 			</h3>
-			<%Product p = ProductDao.getProductByPid(p.getPid()); %>
+			<% int id = Integer.parseInt(request.getParameter("id"));  %>
+			<%Product p = ProductDao.getProductByPid(id); %>
 			
 			<div class="row contact-main-info mt-5">
 				<div class="col-md-12 contact-right-content">
 					<form action="ProductController" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="sid" value="<%=s.getId()%>">
-						<input type="hidden" name="pid" value="<%=s.getId()%>">
-						<input type="file" name="image" value="<%=p.getImage()%>" >
+						<input type="hidden" name="pid" value="<%=p.getPid()%>">
+						<input type="file" name="image">
 						<input type="text" name="pname" value="<%=p.getPname() %>" required="">
 						<input type="text" name="pprice" value="<%=p.getPprice() %>" required="">
 						<input type="text" class="email" name="pcategory" value="<%=p.getPcategory() %>" required=""> 

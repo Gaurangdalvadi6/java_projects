@@ -107,14 +107,13 @@ public class ProductDao {
 	public static Product updateProductByPid(Product p) {
 		try {
 			Connection connection = DBConnection.createConnection();
-			String sqlString = "update product set image=?,pname=?,pprice=?,pcategory=?,pdesc=? where pid=?";
+			String sqlString = "update product image=?,pname=?,pprice=?,pcategory=?,pdesc=? where pid=?";
 			PreparedStatement pst = connection.prepareStatement(sqlString);
 			pst.setString(1, p.getImage());
 			pst.setString(2, p.getPname());
 			pst.setInt(3, p.getPprice());
 			pst.setString(4, p.getPcategory());
 			pst.setString(5, p.getPdesc());
-			pst.setInt(6, p.getPid());
 			pst.executeUpdate();
 			System.out.println("product updated successfully.....");
 		} catch (Exception e) {

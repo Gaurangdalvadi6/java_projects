@@ -103,7 +103,7 @@ public class ProductController extends HttpServlet {
 	            imgSaveDir.mkdir();
 	        }
 			Product p = new Product();
-			p.setPid(Integer.parseInt(request.getParameter("pid")));
+			p.setSid(Integer.parseInt(request.getParameter("sid")));
 			p.setImage(fileName);
 			p.setPname(request.getParameter("pname"));
 			p.setPprice(Integer.parseInt(request.getParameter("pprice")));

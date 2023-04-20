@@ -130,8 +130,8 @@ else{
 			<div class="row contact-main-info mt-5">
 				<div class="col-md-12 contact-right-content">
 					<form action="ProductController" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="pid" value="<%=p.getPid()%>">
-						<input type="file" name="image">
+						<input type="hidden" name="pid" value="<%=p.getId()%>">
+						<input type="file" name="image" value="<%=p.getImage()%>" >
 						<input type="text" name="pname" value="<%=p.getPname() %>" required="">
 						<input type="text" name="pprice" value="<%=p.getPprice() %>" required="">
 						<input type="text" class="email" name="pcategory" value="<%=p.getPcategory() %>" required=""> 
