@@ -48,6 +48,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //lined-icons -->
 </head>
 <body>
+<%
+  response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Cache-Control","no-store");
+  response.setHeader("Pragma","no-cache");
+  response.setDateHeader ("Expires", 0);
+  if(session.getAttribute("data")==null)
+      response.sendRedirect("index.jsp");
+  %> 
 	<div class="page-container">
 		<!--/content-inner-->
 		<div class="left-content">
